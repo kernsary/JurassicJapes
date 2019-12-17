@@ -19,7 +19,7 @@ public class Species {
     @Column(name="food_type")
     private String foodType;
 
-    @JsonIgnoreProperties("species")
+//    @JsonIgnoreProperties("species")
     @OneToMany(mappedBy = "species", fetch=FetchType.LAZY)
     private List<Dinosaur> dinosaurs;
 
