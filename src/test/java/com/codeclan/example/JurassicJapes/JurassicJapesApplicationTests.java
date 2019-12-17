@@ -2,8 +2,10 @@ package com.codeclan.example.JurassicJapes;
 
 import com.codeclan.example.JurassicJapes.models.Dinosaur;
 import com.codeclan.example.JurassicJapes.models.Paddock;
+import com.codeclan.example.JurassicJapes.models.Species;
 import com.codeclan.example.JurassicJapes.repositories.DinosaurRepository;
 import com.codeclan.example.JurassicJapes.repositories.PaddockRepository;
+import com.codeclan.example.JurassicJapes.repositories.SpeciesRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,9 @@ class JurassicJapesApplicationTests {
 	@Autowired
 	PaddockRepository paddockRepository;
 
+	@Autowired
+	SpeciesRepository speciesRepository;
+
 	@Test
 	void contextLoads() {
 	}
@@ -31,9 +36,11 @@ class JurassicJapesApplicationTests {
 
 	@Test
 	public void createDinosaur(){
+		Species newSpecies = new Species("Garry", "meat");
+		speciesRepository.save(newSpecies);
 		Paddock newPaddock = new Paddock("Mire");
 		paddockRepository.save(newPaddock);
-		Dinosaur newDinosaur = new Dinosaur("Raptor", "meat", newPaddock);
+		Dinosaur newDinosaur = new Dinosaur(newSpecies, newPaddock);
 		dinosaurRepository.save(newDinosaur);
 	}
 
@@ -46,7 +53,7 @@ class JurassicJapesApplicationTests {
 	@Test
 	public void canGetDinosaur(){
 		Dinosaur dinosaur = dinosaurRepository.getOne(1L);
-		assertEquals("T Rex", dinosaur.getSpecies());
+		assertEquals("T Rex", dinosaur.getSpecies().getName());
 	}
 
 	@Test

@@ -1,13 +1,15 @@
 package com.codeclan.example.JurassicJapes.projections;
 
 import com.codeclan.example.JurassicJapes.models.Dinosaur;
-import com.codeclan.example.JurassicJapes.models.Paddock;
 import com.codeclan.example.JurassicJapes.models.Species;
 import org.springframework.data.rest.core.config.Projection;
 
-@Projection(name="EmbedAllFromDinosaur", types = Dinosaur.class)
-public interface EmbedAllFromDinosaur {
+import java.util.List;
+
+@Projection(name="EmbedAllFromSpecies", types = Species.class)
+public interface EmbedAllFromSpecies {
     Long getId();
-    Species getSpecies();
-    Paddock getPaddock();
+    String getName();
+    String getFoodType();
+    List<Dinosaur> getDinosaurs();
 }

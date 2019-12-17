@@ -12,20 +12,20 @@ public class Dinosaur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name="species")
-    private String species;
+    @JsonIgnoreProperties("dinosaurs")
+    @ManyToOne
+    @JoinColumn(name="species_id", nullable=false)
+    private Species species;
 
-    @Column(name="food_type")
-    private String foodType;
+
 
     @JsonIgnoreProperties("dinosaurs")
     @ManyToOne
     @JoinColumn(name="paddock_id", nullable=false)
     private Paddock paddock;
 
-    public Dinosaur(String species, String foodType, Paddock paddock) {
+    public Dinosaur(Species species, Paddock paddock) {
         this.species = species;
-        this.foodType = foodType;
         this.paddock = paddock;
     }
 
@@ -40,20 +40,12 @@ public class Dinosaur {
         Id = id;
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
-    }
-
-    public String getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
     }
 
     public Paddock getPaddock() {
